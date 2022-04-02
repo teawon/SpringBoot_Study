@@ -1,8 +1,11 @@
 package com.board.main.domain.user.controller;
 
+import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MemberController {
@@ -13,4 +16,22 @@ public class MemberController {
     public MemberController(MemberService memberService){
         this.memberService = memberService;
     }
+
+    @GetMapping("ourboard/users/signup")
+    public String createSignupForm(){
+        return "users/signupForm";
+    }
+
+    @PostMapping("/ourboard/users/signup")
+    public String creat(SignupForm form){
+        Member member = new Member();
+        member.setUserID(form.getUserId());
+        member.setPassword(form.getPassword());
+        member.setUserName(form.getUserName());
+
+        memberService.join(member);
+
+        return "redirect:/";
+    }
+
 }
