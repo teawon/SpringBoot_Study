@@ -19,8 +19,8 @@ public class MemoryMemberRepository implements MemberRepository{
         }
        // user의 ID를 키 값으로 하는 member 객체를 store에 저장
         @Override
-        public Optional<Member> findById(String id) {
-            return Optional.ofNullable(store.get(id));
+        public Optional<Member> findById(String userId) {
+            return Optional.ofNullable(store.get(userId));
         }
         //저장된 ID값을 가지고 member객체 return
 
