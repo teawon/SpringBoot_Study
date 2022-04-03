@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale="1">
@@ -47,7 +47,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">메인</a></li>
+            <li class="active"><a href="/">메인</a></li>
 
             <li><a href="temp.html">임시 Text</a></li>
             <li><a href="temp.html">임시 2</a></li>
@@ -71,17 +71,24 @@
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
         <div class="jumbotron" style="padding-top:20px;">
-            <form method="post" action="/ourboard/users/signup">
+            <form th:action="@{/ourboard/users/signup}" th:object="${signupform}" method="post">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </div>
+
+
                 <h3 style="text-align:center;">회원가입 화면</h3>
                 <div class="form-gruop">
-                    <input type="text" class="form-control" placeholder="이메일" name="userId" maxlength="20" required>
+
+
+                    <input type="text" class="form-control" placeholder="이메일" name="userId" maxlength="20">
 
                 </div>
                 <div class="form-gruop">
-                    <input type="password" class="form-control" placeholder="비밀번호" name="password" maxlength="20" required>
+                    <input type="password" class="form-control" placeholder="비밀번호" name="password" maxlength="20" >
                 </div>
                 <div class="form-gruop">
-                    <input type="text" class="form-control" placeholder="성명" name="userName" maxlength="20" required>
+                    <input type="text" class="form-control" placeholder="성명" name="userName" maxlength="20" >
 
                 </div>
                 <input type="submit" class="btn btn-primary form-control" value="회원가입">
