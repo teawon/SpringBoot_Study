@@ -6,6 +6,7 @@ import com.board.main.domain.user.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class MemberService {
      * @param member
      * @return string UserId;
      */
+    @Transactional
     public String join(Member member) {
         duplicateIDCheck(member);
 

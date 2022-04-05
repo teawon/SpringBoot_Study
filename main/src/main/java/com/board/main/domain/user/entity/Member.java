@@ -1,6 +1,11 @@
 package com.board.main.domain.user.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Member {
+    @Id
     private String userId;
     private String userName;
     private String password;

@@ -27,7 +27,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	// 유효성 체크를 위한 validation 의존성추가
+	runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// 유효성 체크를 위한 validation 의존성추가 , h2Db사용을 위한 1번은 h2설치, 2번은 자바내에서 jpa사용
 }
 
 tasks.named('test') {
