@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +24,7 @@ public class MemberController {
     }
 
     @GetMapping("ourboard/users/signup")
-    public String createSignupForm(SignupForm signupform){
+    public String createSignupForm(@ModelAttribute("signupform") SignupForm signupform){
         return "users/signupForm";
     }
 //    public String createSignupForm(Model model){
@@ -32,7 +33,7 @@ public class MemberController {
 //    }
 
     @PostMapping("/ourboard/users/signup")
-    public String creat(@Valid SignupForm signupform , BindingResult bindingResult){
+    public String creat(@ModelAttribute("signupform") @Valid SignupForm signupform , BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
             return "/users/signupForm";
@@ -43,14 +44,14 @@ public class MemberController {
         member.setPassword(signupform.getPassword());
         member.setUserName(signupform.getUserName());
 
-//        try {
-//        memberService.join(member);
-//        }catch(IllegalStateException e){
-//            e.printStackTrace();
-//            bindingResult.reject("signupFail","이미 등록된 사용자입니다.");
-//
-//            return "/users/signupForm";
-//        }
+        try {
+            memberService.join(member);
+            }catch(IllegalStateException e){
+               e.printStackTrace();
+               bindingResult.reject("signupFail","이미 등록된 사용자입니다.");
+
+               return "/users/signupForm";
+       }
 
 
         return "redirect:/";
