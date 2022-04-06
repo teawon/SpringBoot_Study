@@ -19,12 +19,10 @@ public class MemberService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository){
+    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper){
         this.memberRepository = memberRepository;
-        this.modelMapper = modelMapper();
+        this.modelMapper = modelMapper;
     }
-
-    //@Autowired ModelMapper modelMapper;
 
     private MemberDto of(Member member){
         return modelMapper.map(member,MemberDto.class);  //member entitiy를 member Dto로 변경
