@@ -27,10 +27,7 @@ public class MemberController {
     public String createSignupForm(@ModelAttribute("signupform") SignupForm signupform){
         return "users/signupForm";
     }
-//    public String createSignupForm(Model model){
-//        model.addAttribute("signupform",new SignupForm());
-//        return "users/signupForm";
-//    }
+
 
     @PostMapping("/ourboard/users/signup")
     public String creat(@ModelAttribute("signupform") @Valid SignupForm signupform , BindingResult bindingResult){

@@ -1,8 +1,10 @@
 package com.board.main.domain.user.service;
 
+import com.board.main.domain.user.dto.MemberDto;
 import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.repository.MemberRepository;
 import com.board.main.domain.user.repository.MemoryMemberRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,18 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
+
     @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
+        this.modelMapper = modelMapper();
+    }
+
+    //@Autowired ModelMapper modelMapper;
+
+    private MemberDto of(Member member){
+        return modelMapper.map(member,MemberDto.class);  //member entitiy를 member Dto로 변경
     }
 
 

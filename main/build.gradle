@@ -28,6 +28,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// 유효성 체크를 위한 validation 의존성추가
+
+	implementation 'org.modelmapper:modelmapper:3.0.0'
+	//Dto와 entitiy 객체를 변환하기 위한 맵핑 라이브러리 ModelMapper 추가
 }
 
 tasks.named('test') {
