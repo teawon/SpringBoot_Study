@@ -4,12 +4,14 @@ import com.board.main.domain.user.dto.MemberDto;
 import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.repository.MemberRepository;
 import com.board.main.domain.user.repository.MemoryMemberRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -56,8 +58,11 @@ public class MemberService {
      * 전체 회원 조회
      * @return
      */
-    public List<Member> findMembers() {
-        return memberRepository.findAll();
+    public List<MemberDto> findMembers() {
+        List<Member>  membersList= memberRepository.findAll();
+
+        List<MemberDto> memberDtoList = membersList.stream().map(q -> of(q)).collect(Collectors.toList());
+        return memberDtoList;
     }
 
     /**
@@ -65,7 +70,11 @@ public class MemberService {
      * @param id
      * @return
      */
-    public Optional<Member> findMember(String id){
-        return memberRepository.findById(id);
+    public Optional<MemberDto> findMember(String id){
+
+        Optional<Member> memberById =  memberRepository.findById(id);
+        Optional<MemberDto> memberDtoById = memberById.map(q -> of(q));
+        return memberDtoById;
+
     }
 }

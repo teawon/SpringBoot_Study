@@ -1,5 +1,6 @@
 package com.board.main.domain.user.controller;
 
+import com.board.main.domain.user.dto.MemberDto;
 import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class MemberController {
 
     @GetMapping("/ourboard/users/view")
     public String List(Model model){
-        List<Member> members = memberService.findMembers();
+        List<MemberDto> members = memberService.findMembers();
         model.addAttribute("members",members);
         return "users/view";
     }
