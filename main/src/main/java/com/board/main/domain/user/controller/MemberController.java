@@ -1,6 +1,8 @@
 package com.board.main.domain.user.controller;
 
+import com.board.main.domain.user.dto.LoginFormDto;
 import com.board.main.domain.user.dto.MemberDto;
+import com.board.main.domain.user.dto.SignupForm;
 import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-
+@RequestMapping("ourboard/users")
 public class MemberController {
 
 
@@ -24,13 +27,13 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("ourboard/users/signup")
+    @GetMapping("/signup")
     public String createSignupForm(@ModelAttribute("signupform") SignupForm signupform){
         return "users/signupForm";
     }
 
 
-    @PostMapping("/ourboard/users/signup")
+    @PostMapping("/signup")
     public String creat(@ModelAttribute("signupform") @Valid SignupForm signupform , BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
@@ -55,11 +58,29 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/ourboard/users/view")
+    @GetMapping("/view")
     public String List(Model model){
         List<MemberDto> members = memberService.findMembers();
         model.addAttribute("members",members);
         return "users/view";
     }
 
+    @GetMapping("/login")
+    public String login(@ModelAttribute("loginForm") LoginFormDto loginForm) {
+        return "users/loginForm";
+    }
+
+//    @PostMapping("/login")
+//    public String login(@ModelAttribute("loginForm") @Valid LoginFormDto loginForm, BindingResult bindingResult){
+//
+//        if (bindingResult.hasErrors()) {
+//            return "/users/loginForm";
+//        }
+//
+//
+//
+//
+//
+//        return "redirect:/";
+//    }
 }

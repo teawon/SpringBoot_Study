@@ -7,6 +7,8 @@ import com.board.main.domain.user.repository.MemoryMemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper){
+    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder){
         this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private MemberDto of(Member member){
@@ -38,8 +42,12 @@ public class MemberService {
      */
     public String join(Member member) {
         duplicateIDCheck(member);
+        Member newMember = new Member();
+        newMember.setUserID(member.getUserId());
+        newMember.setUserName(member.getUserName());
+        newMember.setPassword(passwordEncoder.encode(member.getPassword()));
 
-        memberRepository.save(member);
+        memberRepository.save(newMember);
         return member.getUserId();
     }
 

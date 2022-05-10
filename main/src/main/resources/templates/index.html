@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale="1">
@@ -77,8 +78,11 @@
                    data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">접속하기<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="ourboard/users/login">로그인</a></li>
-                    <li><a href="ourboard/users/signup">회원가입</a></li>
+                    <li>
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{ourboard/users/login}">로그인</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/ourboard/users/logout}">로그아웃</a>
+                    </li>
+                    <li><a  sec:authorize="isAnonymous()" href="ourboard/users/signup">회원가입</a></li>
                 </ul>
             </li>
         </ul>

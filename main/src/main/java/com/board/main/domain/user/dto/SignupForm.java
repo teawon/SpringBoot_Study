@@ -1,4 +1,4 @@
-package com.board.main.domain.user.controller;
+package com.board.main.domain.user.dto;
 
 import javax.validation.constraints.NotEmpty;
 
