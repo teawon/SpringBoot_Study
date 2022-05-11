@@ -40,13 +40,10 @@ public class MemberController {
             return "/users/signupForm";
         }
 
-        Member member = new Member();
-        member.setUserID(signupform.getUserId());
-        member.setPassword(signupform.getPassword());
-        member.setUserName(signupform.getUserName());
+
 
         try {
-            memberService.join(member);
+            memberService.join(signupform);
             }catch(IllegalStateException e){
                e.printStackTrace();
                bindingResult.reject("signupFail","이미 등록된 사용자입니다.");
@@ -70,17 +67,5 @@ public class MemberController {
         return "users/loginForm";
     }
 
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute("loginForm") @Valid LoginFormDto loginForm, BindingResult bindingResult){
-//
-//        if (bindingResult.hasErrors()) {
-//            return "/users/loginForm";
-//        }
-//
-//
-//
-//
-//
-//        return "redirect:/";
-//    }
+
 }

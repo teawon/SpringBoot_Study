@@ -1,6 +1,7 @@
 package com.board.main.domain.user.service;
 
 import com.board.main.domain.user.dto.MemberDto;
+import com.board.main.domain.user.dto.SignupForm;
 import com.board.main.domain.user.entity.Member;
 import com.board.main.domain.user.repository.MemberRepository;
 import com.board.main.domain.user.repository.MemoryMemberRepository;
@@ -40,8 +41,10 @@ public class MemberService {
      * @param member
      * @return string UserId;
      */
-    public String join(Member member) {
-        duplicateIDCheck(member);
+    public String join(SignupForm member) {
+
+        duplicateIDCheck(member.getUserId());
+
         Member newMember = new Member();
         newMember.setUserID(member.getUserId());
         newMember.setUserName(member.getUserName());
@@ -53,10 +56,10 @@ public class MemberService {
 
     /**
      * 중복 ID체크
-     * @param member
+     * @param memberId
      */
-    private void duplicateIDCheck(Member member) {
-        memberRepository.findById(member.getUserId())
+    private void duplicateIDCheck(String memberId) {
+        memberRepository.findById(memberId)
                 .ifPresent(m -> {
             throw new IllegalStateException("이미 가입된 아이디 입니다."); //optional로 감싸서 다음과 같은 문법 사용가능.
         });
